@@ -1,0 +1,360 @@
+*{ 
+    margin:0; 
+    padding:0; 
+    box-sizing:border-box; }
+
+body{
+    overflow-x:hidden;
+    overflow-y:auto;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ====================== BACKGROUND ====================== */
+.background{
+    width:100%; height:100vh;
+    background:linear-gradient(#6ec6ff,#d8f3ff);
+    position:fixed; overflow:hidden; z-index:-1;
+}
+
+.cloud{
+    position:absolute; width:180px;
+    animation:awan linear infinite;
+}
+.cloud1{ top:40px;  animation-duration:25s; }
+.cloud2{ top:170px; width:220px; animation-duration:35s; }
+.cloud3{ top:300px; width:140px; animation-duration:20s; }
+
+@keyframes awan{
+    from{ left:-300px; }
+    to{   left:110%; }
+}
+
+/* ====================== PAGES ====================== */
+.page{
+    width:100%; 
+    height:100vh;
+    position:relative;
+    display:none;
+    justify-content:center; 
+    align-items:center;
+    flex-direction:column;
+    padding:20px 0;
+}
+.active-page{ display:flex; }
+
+/* ====================== MENU ====================== */
+.menu-box{
+    width:380px;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(8px);
+    border:4px solid white;
+    border-radius:25px;
+    padding:40px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+h1{
+    color:white; font-size:55px; font-weight:bold;
+    margin-bottom:35px; text-shadow:4px 4px black;
+}
+.btn-menu{
+    width:100%; margin-top:15px;
+    font-size:22px; font-weight:bold;
+    border-radius:15px; padding:12px;
+}
+
+/* ====================== GAME PAGE ====================== */
+#gamePage{ justify-content:flex-start; align-items:flex-start; }
+
+.score-board{
+    width:100%; display:flex;
+    justify-content:space-between;
+    padding:15px 30px;
+    color:white; font-size:20px; font-weight:bold;
+    text-shadow:3px 3px black; z-index:999;
+}
+
+.game-area{
+    width:100%; height:100%;
+    position:relative; overflow:hidden;
+}
+
+/* ====================== GROUND ====================== */
+.ground{
+    width:100%; height:120px;
+    background:#9b5b1e;
+    border-top:8px solid #6d3600;
+    position:absolute; bottom:0;
+}
+
+/* ====================== PLAYER ====================== */
+.player{
+    width:80px; height:110px;
+    position:absolute;
+    left:100px; bottom:120px;
+    /* HANYA transition left — jangan transition bottom, dikelola physics */
+    transition:left 0.04s linear;
+}
+
+.head{
+    width:50px; height:50px;
+    background:#ffd39b;
+    border-radius:50%;
+    position:absolute; left:15px; top:10px;
+}
+.hat{
+    width:60px; height:22px;
+    background:red;
+    border-radius:20px 20px 5px 5px;
+    position:absolute; top:0; left:10px;
+}
+.body{
+    width:55px; height:45px;
+    background:blue;
+    position:absolute; top:55px; left:12px;
+    border-radius:10px;
+}
+.leg1, .leg2{
+    width:18px; height:35px;
+    background:#5a2d0c;
+    position:absolute; bottom:0; border-radius:10px;
+}
+.leg1{ left:18px; }
+.leg2{ right:18px; }
+
+/* ====================== ENEMY ====================== */
+/* Bergerak kanan → kiri pakai left */
+.enemy{
+    width:65px; height:65px;
+    background:brown; border-radius:50%;
+    position:absolute; bottom:120px;
+    left:110%;
+    animation:enemyMove linear infinite;
+}
+.enemy1{ animation-duration:4s; }
+.enemy2{ animation-duration:6s; width:55px; height:55px; }
+.enemy3{ animation-duration:5s; width:75px; height:75px; }
+.enemy4{ animation-duration:7s; width:60px; height:60px; }
+
+@keyframes enemyMove{
+    from{ left:110%; }
+    to{   left:-100px; }
+}
+
+/* ====================== COIN ====================== */
+.coin{
+    width:40px; height:40px;
+    background:gold; border-radius:50%;
+    position:absolute; top:320px; right:-100px;
+    animation:coinMove 6s linear infinite;
+    box-shadow:0 0 15px yellow;
+}
+@keyframes coinMove{
+    from{ right:-100px; }
+    to{   right:110%; }
+}
+
+/* ====================== BRICK ====================== */
+.brick{
+    width:70px; height:70px;
+    background:#c96f2d;
+    border:4px solid #8b4513;
+    position:absolute;
+    box-shadow:
+        inset -4px -4px rgba(0,0,0,0.2),
+        inset  4px  4px rgba(255,255,255,0.2);
+}
+.brick::before{
+    content:''; width:100%; height:4px;
+    background:#8b4513;
+    position:absolute; top:30px; left:0;
+}
+.brick::after{
+    content:''; width:4px; height:100%;
+    background:#8b4513;
+    position:absolute; left:30px; top:0;
+}
+.brick1{ left:350px; bottom:260px; }
+.brick2{ left:450px; bottom:260px; }
+.brick3{ left:550px; bottom:260px; }
+
+/* ====================== HEARTS ====================== */
+.life-box{ display:flex; gap:10px; }
+.heart{ font-size:32px; transition:0.3s; }
+.heart.lost{ opacity:0.2; transform:scale(0.8); }
+
+/* ====================== GUIDE ====================== */
+.guide-box{
+    width:90%; 
+    max-width:700px; 
+    height:520px;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+    border:4px solid white; 
+    border-radius:30px;
+    padding:30px; 
+    position:relative; 
+    overflow-y:auto;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+.guide-title{
+    text-align:center; font-size:45px;
+    color:white; text-shadow:4px 4px black;
+    margin-bottom:20px;
+}
+.slide{
+    display:none; width:100%; height:100%;
+    text-align:center;
+    animation:fadeSlide 0.4s ease;
+    padding-top:20px;
+}
+.active-slide{ display:block; }
+@keyframes fadeSlide{
+    from{ opacity:0; transform:translateX(40px); }
+    to{   opacity:1; transform:translateX(0); }
+}
+.guide-icon{
+    font-size:90px; margin-bottom:20px;
+    animation:iconFloat 2s infinite ease-in-out;
+}
+@keyframes iconFloat{
+    0%,100%{ transform:translateY(0); }
+    50%    { transform:translateY(-10px); }
+}
+.slide h2{ font-size:38px; color:white; font-weight:bold; text-shadow:3px 3px black; margin-bottom:20px; }
+.slide p { font-size:22px; color:white; font-weight:bold; line-height:1.7; text-shadow:2px 2px black; }
+.control-demo{ display:flex; justify-content:center; gap:20px; margin-top:30px; }
+.key-box{
+    width:80px; height:80px; background:white;
+    border-radius:20px; display:flex;
+    justify-content:center; align-items:center;
+    font-size:40px; font-weight:bold; box-shadow:0 6px 0 #999;
+}
+.big-key{
+    padding:20px 50px; background:white;
+    border-radius:20px; font-size:35px; font-weight:bold;
+    box-shadow:0 6px 0 #999; margin-top:30px; display:inline-block;
+}
+.coin-demo, .enemy-demo{
+    font-size:60px; margin-top:30px;
+    animation:bounce 1s infinite;
+}
+@keyframes bounce{
+    0%,100%{ transform:translateY(0); }
+    50%    { transform:translateY(-15px); }
+}
+.slide-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:70px; height:70px; border:none; border-radius:50%;
+    background:white; font-size:40px; font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    transition:0.2s; z-index:999; cursor:pointer;
+}
+.slide-arrow:hover{ transform:translateY(-50%) scale(1.1); }
+.left-arrow{ left:15px; }
+.right-arrow{ right:15px; }
+
+/* ====================== CHARACTER SHOP ====================== */
+.character-shop{
+    width:95%; max-width:1100px; padding:30px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    border-radius:35px; border:4px solid white;
+    box-shadow:0 0 35px rgba(0,0,0,0.3); text-align:center;
+}
+.shop-title{ font-size:55px; color:white; text-shadow:4px 4px black; margin-bottom:20px; }
+.point-box{
+    display:inline-block; padding:15px 35px;
+    background:white; border-radius:20px;
+    font-size:28px; font-weight:bold;
+    margin-bottom:35px; box-shadow:0 6px 0 rgba(0,0,0,0.2);
+}
+.character-container{ display:flex; justify-content:center; gap:30px; flex-wrap:wrap; }
+.new-character-card{
+    width:280px;
+    background:rgba(255,255,255,0.25);
+    border-radius:30px; padding:25px;
+    backdrop-filter:blur(8px);
+    border:3px solid white; transition:0.3s;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+.new-character-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 0 30px rgba(255,255,255,0.5);
+}
+.character-circle{
+    width:140px; height:140px; border-radius:50%;
+    margin:auto; position:relative; margin-bottom:20px;
+    display:flex; justify-content:center; align-items:center;
+    box-shadow:0 0 20px rgba(255,255,255,0.5);
+}
+.red-bg  { background:linear-gradient(red,#ff7b7b); }
+.green-bg{ background:linear-gradient(green,#5dff5d); }
+.blue-bg { background:linear-gradient(blue,#6f6fff); }
+.new-character-card h3{
+    font-size:30px; font-weight:bold;
+    color:white; text-shadow:3px 3px black; margin-bottom:10px;
+}
+.price{ font-size:24px; font-weight:bold; color:yellow; text-shadow:2px 2px black; margin-bottom:20px; }
+.free{ color:#00ff88; }
+.back-shop-btn{ margin-top:25px; font-size:20px; font-weight:bold; padding:12px 35px; border-radius:15px; }
+.character-btn{ width:100%; font-size:18px; font-weight:bold; border-radius:12px; padding:10px; border:none; }
+.mario-btn{ background:#ff4444; color:white; }
+.luigi-btn{ background:#22aa22; color:white; }
+.blue-btn { background:#4444ff; color:white; }
+.character-btn:hover{ opacity:0.85; transform:scale(1.03); transition:0.15s; }
+
+/* ====================== GAME OVER ====================== */
+.gameover-screen{
+    display:none;
+    position:fixed; top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.78);
+    z-index:9999;
+    justify-content:center; align-items:center;
+}
+.gameover-box{
+    background:white; border-radius:30px;
+    padding:50px 60px; text-align:center;
+    box-shadow:0 0 60px rgba(0,0,0,0.6);
+    animation:popIn 0.3s ease;
+}
+@keyframes popIn{
+    from{ transform:scale(0.7); opacity:0; }
+    to{   transform:scale(1);   opacity:1; }
+}
+.gameover-title{
+    font-size:60px; font-weight:bold;
+    color:red; text-shadow:3px 3px #aaa; margin-bottom:20px;
+}
+.gameover-text{ font-size:26px; font-weight:bold; color:#333; margin-bottom:8px; }
+.gameover-btns{ display:flex; gap:20px; justify-content:center; margin-top:30px; }
+
+/* ====================== MOBILE CONTROL ====================== */
+.mobile-control{
+    position:fixed; bottom:130px;
+    width:100%;
+    display:flex; justify-content:space-between;
+    padding:0 25px;
+    z-index:999;
+    pointer-events:none;
+}
+.mobile-control > div{
+    display:flex; gap:12px;
+    pointer-events:all;
+}
+.mobile-control button{
+    width:68px; height:68px;
+    font-size:28px; font-weight:bold;
+    background:rgba(255,255,255,0.75);
+    border:3px solid white; border-radius:50%;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    user-select:none;
+    transition:transform 0.1s, background 0.1s;
+}
+.mobile-control button:active{
+    background:rgba(255,255,255,0.95);
+    transform:scale(0.9);
+}
